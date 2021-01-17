@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option csharp_namespace = "ChatServiceModifiedClient";
+
+package chatPackage;
+
+service ChatRoomProtoServices{
+	rpc GetExactChatRoom (LookupRoom) returns (RoomInfo);
+	rpc GetAllChatRooms (All) returns (stream RoomInfo); 
+	rpc CreateNewChatRoom (CreateChatRoom) returns (RoomInfo);
+	rpc JoinToChat (stream Message) returns (stream Message);
+	
+}
+
+message All{
+
+}
+
+message CreateChatRoom{
+	string chatName = 1;
+}
+
+message Rooms{
+	repeated RoomInfo chatRooms = 1;
+}
+
+message RoomInfo{
+	int32 id=1;
+	string roomName=2;
+}
+
+message LookupRoom{
+	int32 id=1;
+}
+
+message Message{
+	string msgId=1;
+	string username=2;
+	string text=3;
+	int32 roomId=4;
+}
+
